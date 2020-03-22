@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -5,6 +6,10 @@
 <%@ page import="res.ResDAO"%>
 <%@ page import="res.Res"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="java.io.InputStreamReader"%>
+<%@ page import="java.net.HttpURLConnection"%>
+<%@ page import="java.net.URL"%>
+<%@ page import="java.io.BufferedReader"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -108,24 +113,22 @@
 			</tr>
 		</thead>
 		<tbody>
-					<%
-						ResDAO resDAO = new ResDAO();
-						ArrayList<Res> list = resDAO.getList();
-						for(int i=0; i<list.size(); i++){
-					%>
-
+	
+			<% List<Res> list = (ArrayList)request.getAttribute("list");
+			for(int i=0; i<list.size(); i++){
+				
+			%>
 			<tr>
-				<td><%= list.get(i).getNum()%></td>
-				<td><%= list.get(i).getName()%></td>
-				<td><%=list.get(i).getDate().substring(0, 4)+"년 "+list.get(i).getDate().substring(4, 6)+"월 "+list.get(i).getDate().substring(6,8)+"일" %></td>
-				<td><%=list.get(i).getContent() %></td>
-				<td><%=list.get(i).getAdd()%></td>
+				<td><%= i+1 %></td>
+				<td><%= list.get(i).getName() %></td>
+				<td><%= list.get(i).getDate()%></td>
+				<td><%= list.get(i).getContent()%></td>
+				<td><%= list.get(i).getAdd()%></td>
 			</tr>
+			
+			<%} %>
 
-			<%
-							
-						}
-					%>
+		
 		</tbody>
 	</table>
 
